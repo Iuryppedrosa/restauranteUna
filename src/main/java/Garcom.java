@@ -7,14 +7,14 @@ public class Garcom
     private String dataNascimento;
     private String email;
     private char sexo;
+
+    private String telefone;
     private double salarioFixo;
 
     private ArrayList<Mesa> arlMesasNoGarcom;
 
-    //private Mesa mesaAtribuida;
-
     public Garcom(String nome, String cpf, String dataNascimento, String email,
-                  char sexo, double salarioFixo/*Mesa arlMesasNoGarcom*/)
+                  char sexo, double salarioFixo, String telefone, ArrayList<Mesa> arlMesasNoGarcom)
     {
         this.nome = nome;
         this.cpf = cpf;
@@ -22,7 +22,8 @@ public class Garcom
         this.email = email;
         this.sexo = sexo;
         this.salarioFixo = salarioFixo;
-        //this.arlMesasNoGarcom = arlMesasNoGarcom;
+        this.telefone = telefone;
+        this.arlMesasNoGarcom = arlMesasNoGarcom;
     }
 
     public Garcom()
@@ -38,6 +39,16 @@ public class Garcom
     public void setArlMesasNoGarcom(ArrayList<Mesa> arlMesasNoGarcom)
     {
         this.arlMesasNoGarcom = arlMesasNoGarcom;
+    }
+
+    public String getTelefone()
+    {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone)
+    {
+        this.telefone = telefone;
     }
 
     public String getNome()
