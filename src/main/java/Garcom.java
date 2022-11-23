@@ -11,10 +11,10 @@ public class Garcom
     private String telefone;
     private double salarioFixo;
 
-    private ArrayList<Mesa> arlMesasNoGarcom;
+    private ArrayList<Mesa> arlMesasNoGarcom = new ArrayList<>();
 
     public Garcom(String nome, String cpf, String dataNascimento, String email,
-                  char sexo, double salarioFixo, String telefone, ArrayList<Mesa> arlMesasNoGarcom)
+                  char sexo, double salarioFixo, String telefone)
     {
         this.nome = nome;
         this.cpf = cpf;
@@ -23,7 +23,6 @@ public class Garcom
         this.sexo = sexo;
         this.salarioFixo = salarioFixo;
         this.telefone = telefone;
-        this.arlMesasNoGarcom = arlMesasNoGarcom;
     }
 
     public Garcom()
