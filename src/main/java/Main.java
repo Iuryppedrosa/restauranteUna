@@ -1,6 +1,11 @@
+/*
+Iury Pedrosa - 202216280
+Mariana Sany Ribeiro do Nascimento - 202217151
+Pedro Henrique Guimaraes Rezende - 201910463
+Paulo Henrique de Faria Junior - 201912530
+ */
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Main
 {
     private static final ArrayList<Garcom> arlGarcom = new ArrayList<>();
@@ -44,7 +49,7 @@ public class Main
                             System.out.println("Agradecemos por tentar cadastrar uma mesa, obrigado!!!");
                             return;
                         default:
-                            System.out.println("Opcao invalida, Digite outra opcao");
+                            System.out.println("Opcao invalida, Digite outra opcao.");
                     }
                     break;
                 case 2:
@@ -54,19 +59,19 @@ public class Main
                         switch (opcao2)
                         {
                             case 1:
-                                cadastrarMesa();//feito
+                                cadastrarMesa();
                                 break;
                             case 2:
-                                removerMesa();///feito
+                                removerMesa();
                                 break;
                             case 3:
-                                relatorioMesa();// feito
+                                relatorioMesa();
                                 break;
                             case 4:
-                                buscarMesaPorNumero();//feito
+                                buscarMesaPorNumero();
                                 break;
                             case 5:
-                                buscarMesaPorCapacidadeDeClientes();//feito
+                                buscarMesaPorCapacidadeDeClientes();
                                 break;
                             case 6:
                                 definirGarcomParaMesa();
@@ -80,7 +85,7 @@ public class Main
                                 System.out.println("Agradecemos por tentar cadastrar uma mesa, obrigado!!!");
                                 return;
                             default:
-                                System.out.println("Opcao invalida, Digite outra opcao");
+                                System.out.println("Opcao invalida, Digite outra opcao.");
                         }
                     }
                     break;
@@ -129,7 +134,7 @@ public class Main
                 if (mesaLivre.getGarcomDaMesa() != null)
                 {
                     System.out.println(mesaLivre.getGarcomDaMesa().getNome());
-                } else System.out.println("Nao ha garçom definido para esta mesa ainda.");
+                } else System.out.println("Nao há garçom definido para esta mesa ainda.");
                 System.out.println();
             }
         }
@@ -153,7 +158,8 @@ public class Main
     private static void atribuirGarcomUmaMesa()
     {
         System.out.print("\nQual o nome do garcom que vc deseja atribuir uma mesa: ");
-        String nomeGarcom = input.next();
+        input.nextLine();
+        String nomeGarcom = input.nextLine();
 
         Garcom garcomBuscado = null;
 
@@ -170,10 +176,10 @@ public class Main
         }catch(Exception e)
         {
             e.printStackTrace();
-            System.out.println("Erro ao buscar garcom pelo nome");
+            System.out.println("Erro ao buscar garcom pelo nome.");
         }
 
-        System.out.print("\nQual o numero da mesa que vc deseja atribuir ao garcom " + nomeGarcom + "?");
+        System.out.print("\nQual o numero da mesa que vc deseja atribuir ao garcom " + nomeGarcom + " ?");
         int numeroMesa = input.nextInt();
 
         Mesa mesaBuscada = null;
@@ -198,22 +204,6 @@ public class Main
         garcomBuscado.getArlMesasNoGarcom().add(mesaBuscada);
     }
 
-    /*public static void atribuicaoDeClasses(Mesa mesaBuscada, Garcom garcomBuscado)
-    {
-        if(mesaBuscada.getGarcomDaMesa().equals(garcomBuscado.getNome()))
-        {
-            System.out.println("Ja existe garcom para esta mesa.");
-            mesaBuscada.setGarcomDaMesa(garcomBuscado);
-        }
-        else
-        {
-            System.out.println("Ja existe garcom para esta mesa.");
-        }
-
-        garcomBuscado.getArlMesasNoGarcom().add(mesaBuscada);
-
-    }*/
-
     private static void buscarGarcomEmail()
     {
         System.out.print("Qual o e-mail do garcom que deseja buscar: ");
@@ -232,7 +222,7 @@ public class Main
         }catch(Exception e)
         {
             e.printStackTrace();
-            System.out.println("Erro ao buscar garcom pelo email!");
+            System.out.println("Erro ao buscar garcom pelo email.");
         }
 
         if(garcomEmail == null)
@@ -266,14 +256,19 @@ public class Main
             System.out.println("\nTelefone : " + garcom.getTelefone());
             System.out.print("Mesas desse garçom: \n");
 
-            for (int i = 0; i < garcom.getArlMesasNoGarcom().size(); i++)
+            if(garcom.getArlMesasNoGarcom() == null)
             {
-                Mesa mesaRelatorio = garcom.getArlMesasNoGarcom().get(i);
-                System.out.println(mesaRelatorio.getNumeroMesa());
+                System.out.println("Nao ha mesas");
+            }else
+            {
+                for (int i = 0; i < garcom.getArlMesasNoGarcom().size(); i++)
+                {
+                    Mesa mesaRelatorio = garcom.getArlMesasNoGarcom().get(i);
+                    System.out.println(mesaRelatorio.getNumeroMesa());
+                }
             }
             System.out.println();
         });
-
 
 
         /*ArrayList<Mesa> mesas = buscarRelatorioMesas();
@@ -298,7 +293,6 @@ public class Main
         input.nextLine();
         String nomeRemocao = input.nextLine();
 
-        //Garcom buscarGarcomParaRemocao = null;
         try
         {
             for (int i = 0; i < arlGarcom.size(); i++)
@@ -308,8 +302,17 @@ public class Main
                 if(garcomAtual.getNome().equalsIgnoreCase(nomeRemocao))
                 {
                     arlGarcom.remove(i);
-                }
 
+                    Mesa mesa = null;
+                    for(Mesa mesaAqui : arlMesa)
+                    {
+                        if(mesaAqui.getGarcomDaMesa().getNome().equals(nomeRemocao))
+                        {
+                            mesa = mesaAqui;
+                            mesa.setGarcomDaMesa(null);
+                        }
+                    }
+                }
             }
         } catch (Exception e)
         {
@@ -372,7 +375,8 @@ public class Main
         }
 
         System.out.println("Qual nome do garcom que vc deseja atribuir a essa mesa: ");
-        String nomeGarcom = input.next();
+        input.nextLine();
+        String nomeGarcom = input.nextLine();
 
         Garcom garcomParaMesa = null;
 
@@ -432,15 +436,6 @@ public class Main
                 }
                 );
 
-        /*ArrayList<Garcom> garcons = buscarRelatorioGarcom();
-        garcons.forEach(g ->
-        {
-            if(g.getArlMesasNoGarcom() != null)
-            {
-                System.out.println(g.getNome());
-            }
-            else System.out.println("\nNao ha garçom definido para esta mesa ainda.");
-        });*/
     }
     private static ArrayList<Mesa> buscarRelatorioMesas()
     {
@@ -467,7 +462,7 @@ public class Main
                 }
             }
             if(capacidadeDeBusca == null)
-            System.out.println("\n\n >> Nao foi encontrado mesa com essa capacidade.");
+                System.out.println("\n\n >> Nao foi encontrado mesa com essa capacidade.");
 
         }catch(Exception e)
         {
@@ -475,7 +470,7 @@ public class Main
             System.out.println("Erro ao buscar mesa pela definiçao de capacidade!");
         }
     }
-    private static void buscarMesaPorNumero(/*int numeroMesa*/)
+    private static void buscarMesaPorNumero()
     {
         System.out.print("Qual numero da mesa voce gostaria de procurar: ");
         int numeroMesa = input.nextInt();
@@ -505,12 +500,11 @@ public class Main
             System.out.println("Ocupacao mesa: " + numeroMesaEncontrado.getOcupacaoMesa());
 
         }
-        //return numeroMesaEncontrado;
     }
 
     private static void removerMesa()
     {
-        System.out.println("Digite o codigo da mesa que deseja removar do restaurante.");
+        System.out.println("Digite o codigo da mesa que deseja remover do restaurante.");
         int numeroMesa = input.nextInt();
         try
         {
@@ -518,13 +512,23 @@ public class Main
             {
                 Mesa mesaAtual = arlMesa.get(i);
 
-                if(mesaAtual.getNumeroMesa() == numeroMesa)
+                if (mesaAtual.getNumeroMesa() == numeroMesa)
                 {
                     arlMesa.remove(i);
+
+                    Garcom garcom = null;
+                    for (int j = 0; j < arlGarcom.size(); j++)
+                    {
+                        Garcom garcomAqui = arlGarcom.get(j);
+                        garcom = garcomAqui;
+
+
+                        garcom.getArlMesasNoGarcom().remove(mesaAtual);
+                    }
                 }
             }
-
-        }catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
             System.out.println("Erro ao remover a mesa!");
@@ -593,8 +597,7 @@ public class Main
     public static void menuInicial()
     {
         System.out.println("""
-                
-                               
+                            
                 ======== Bem vindo ao Sistema de Cadastro e Gerenciamento de Mesas e Garçons. ======
                 
                 1. Opcoes sobre garcom.
