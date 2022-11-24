@@ -143,16 +143,6 @@ public class Main
         {
             System.out.println("Nao foram encontradas mesas livres.");
         }
-
-        /*ArrayList<Garcom> garconsParaMetodoMesaLivre = buscarRelatorioGarcom();
-        garconsParaMetodoMesaLivre.forEach(g ->
-        {
-            if(g.getArlMesasNoGarcom() != null)
-            {
-                System.out.println(g.getNome());
-            }
-            else System.out.println("Nao ha garçom definido para esta mesa ainda.");
-        });*/
     }
 
     private static void atribuirGarcomUmaMesa()
@@ -199,7 +189,6 @@ public class Main
             System.out.println("Erro ao buscar mesa pelo numero!");
         }
 
-        //atribuicaoDeClasses(mesaBuscada, garcomBuscado);
         mesaBuscada.setGarcomDaMesa(garcomBuscado);
         garcomBuscado.getArlMesasNoGarcom().add(mesaBuscada);
     }
@@ -269,17 +258,6 @@ public class Main
             }
             System.out.println();
         });
-
-
-        /*ArrayList<Mesa> mesas = buscarRelatorioMesas();
-        mesas.forEach(mesa ->
-        {
-            if(mesa.getGarcomDaMesa() != null)
-            {
-                    System.out.println(mesa.getNumeroMesa());
-            }
-            else System.out.println("Nao ha mesas para este garçom ainda.");
-        });*/
     }
 
     private static ArrayList<Garcom> buscarRelatorioGarcom()
@@ -395,11 +373,6 @@ public class Main
             e.printStackTrace();
             System.out.println("Erro ao buscar garcom pelo nome!");
         }
-
-
-        //atribuicaoDeClasses(mesaBuscada, garcomParaMesa);
-        /*ArrayList<Mesa> garcomDaMesa = buscarRelatorioMesas();
-        garcomParaMesa.setArlMesasNoGarcom(garcomDaMesa);*/
         mesaBuscada.setGarcomDaMesa(garcomParaMesa);
         garcomParaMesa.getArlMesasNoGarcom().add(mesaBuscada);
     }
