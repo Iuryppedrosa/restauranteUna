@@ -13,8 +13,6 @@ public class Mesa
     private String ocupacaoMesa;
     private Garcom garcomDaMesa;
 
-
-
     public Mesa(int numeroMesa, int capacidadeMesa, String ocupacaoMesa, Garcom garcomDaMesa)
     {
         this.numeroMesa = numeroMesa;

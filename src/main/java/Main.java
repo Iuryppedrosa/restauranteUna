@@ -46,7 +46,7 @@ public class Main
                         case 7:
                             break;
                         case 0:
-                            System.out.println("Agradecemos por tentar cadastrar uma mesa, obrigado!!!");
+                            System.out.println("Agradecemos por navegar por garçom, obrigado!!!");
                             return;
                         default:
                             System.out.println("Opcao invalida, Digite outra opcao.");
@@ -133,12 +133,11 @@ public class Main
 
                 if (mesaLivre.getGarcomDaMesa() != null)
                 {
-                    System.out.println(mesaLivre.getGarcomDaMesa().getNome());
+                    System.out.println("Garçom: " + mesaLivre.getGarcomDaMesa().getNome());
                 } else System.out.println("Nao há garçom definido para esta mesa ainda.");
                 System.out.println();
             }
         }
-
         if(mesaLivre == null)
         {
             System.out.println("Nao foram encontradas mesas livres.");
@@ -292,6 +291,7 @@ public class Main
                     }
                 }
             }
+            System.out.println("Garçom cadastrado com sucesso!!");
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -323,6 +323,8 @@ public class Main
         {
             Garcom garcom = new Garcom(nome, cpf, dataNascimento, email, sexoResultado, salario, telefone);
             arlGarcom.add(garcom);
+
+            System.out.println("Garçom cadastrado com sucesso!!");
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -408,7 +410,6 @@ public class Main
                     System.out.println();
                 }
                 );
-
     }
     private static ArrayList<Mesa> buscarRelatorioMesas()
     {
@@ -470,8 +471,12 @@ public class Main
         {
             System.out.println("Numero da mesa: " + numeroMesaEncontrado.getNumeroMesa());
             System.out.println("Capacidade mesa: " + numeroMesaEncontrado.getCapacidadeMesa());
-            System.out.println("Ocupacao mesa: " + numeroMesaEncontrado.getOcupacaoMesa());
-
+            System.out.print("Ocupacao mesa: ");
+                    if(numeroMesaEncontrado.getOcupacaoMesa().equals("1"))
+                        System.out.println("OCUPADA!");
+                    else if (numeroMesaEncontrado.getGarcomDaMesa().equals("2"))
+                        System.out.println("LIVRE");
+                    else System.out.println("RESERVADA.");
         }
     }
 
