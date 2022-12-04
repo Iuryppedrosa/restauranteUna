@@ -4,6 +4,9 @@ Mariana Sany Ribeiro do Nascimento - 202217151
 Pedro Henrique Guimaraes Rezende - 201910463
 Paulo Henrique de Faria Junior - 201912530
  */
+import beans.Garcom;
+import beans.Mesa;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Main
