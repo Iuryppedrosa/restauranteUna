@@ -42,6 +42,42 @@ public class GarcomDAO
         }
     }
 
+    public static Garcom bucarPeloCpf(String cpf) throws SQLException
+    {
+        Garcom garcom = null;
+
+        try
+        {
+            Connection conexaoRecebida = Conexao.getInstance();
+
+            String sql = """
+                    SELECT * FROM garcom WHERE cpf = ?
+                    """;
+
+            PreparedStatement stmt = conexaoRecebida.prepareStatement(sql);
+
+            stmt.setString(1, cpf);
+
+            ResultSet rs = stmt.executeQuery();
+
+            boolean retorno = rs.next();
+
+            if(retorno == true)
+            {
+                String cpfGarcom = rs.getString("cpf");
+
+                garcom = new Garcom();
+                garcom.setCpf(cpfGarcom);
+            }
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("Erro ao buscar garcom pelo cpf");
+        }
+
+        return garcom;
+    }
+
     public static void remover(String cpf) throws SQLException
     {
         try {
@@ -109,7 +145,8 @@ public class GarcomDAO
         return garcom;
     }
 
-    public static ArrayList<Garcom> buscarTodosGarcons() throws SQLException {
+    public static ArrayList<Garcom> buscarTodosGarcons() throws SQLException
+    {
         ArrayList<Garcom> vetGarcom = new ArrayList<>();
 
         try {

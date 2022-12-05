@@ -3,9 +3,13 @@ package visao;
 
 import beans.Garcom;
 import beans.Mesa;
+import conexao.Conexao;
 import dados.GarcomDAO;
 import dados.MesaDao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -77,7 +81,7 @@ public class MainBanco
                                 buscarMesaPorCapacidadeDeClientes();//feito
                                 break;
                             case 6:
-                                definirGarcomParaMesa();
+                                definirGarcomParaMesa();//feito
                                 break;
                             case 7:
                                 buscarMesasLivresEGarconsDela();
@@ -357,51 +361,55 @@ public class MainBanco
             }
         }
 
-        private static void definirGarcomParaMesa()
+        private static void definirGarcomParaMesa() throws SQLException
         {
+            System.out.println("Qual o numero de cpf do garçom que deseja atribuir a mesa: ");
+            input.nextLine();
+            String cpfGarcom = input.nextLine();
+
+
             System.out.println("Qual numero da mesa que deseja atribuir um garçom: ");
             int numeroMesa = input.nextInt();
 
-            Mesa mesaBuscada = null;
+            MesaDao.definirGarcomAUmaMesa(cpfGarcom, numeroMesa);
 
-            try
-            {
-                for (Mesa mesaAtual : arlMesa)
-                {
-                    if (mesaAtual.getNumeroMesa() == numeroMesa)
-                    {
-                        mesaBuscada = mesaAtual;
-                    }
-                }
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-                System.out.println("Erro ao buscar mesa pelo numero");
-            }
-
-            System.out.println("Qual nome do garcom que vc deseja atribuir a essa mesa: ");
-            input.nextLine();
-            String nomeGarcom = input.nextLine();
-
-            Garcom garcomParaMesa = null;
-
-            try
-            {
-                for (Garcom garcomNomeAtuais : arlGarcom)
-                {
-                    if (garcomNomeAtuais.getNome().equalsIgnoreCase(nomeGarcom))
-                    {
-                        garcomParaMesa = garcomNomeAtuais;
-                    }
-
-                }
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-                System.out.println("Erro ao buscar garcom pelo nome!");
-            }
-            mesaBuscada.setGarcomDaMesa(garcomParaMesa);
-            garcomParaMesa.getArlMesasNoGarcom().add(mesaBuscada);
+//            Mesa mesaBuscada = null;
+//
+//            try
+//            {
+//                for (Mesa mesaAtual : arlMesa)
+//                {
+//                    if (mesaAtual.getNumeroMesa() == numeroMesa)
+//                    {
+//                        mesaBuscada = mesaAtual;
+//                    }
+//                }
+//            }catch(Exception e)
+//            {
+//                e.printStackTrace();
+//                System.out.println("Erro ao buscar mesa pelo numero");
+//            }
+//
+//
+//            Garcom garcomParaMesa = null;
+//
+//            try
+//            {
+//                for (Garcom garcomNomeAtuais : arlGarcom)
+//                {
+//                    if (garcomNomeAtuais.getNome().equalsIgnoreCase(cpfGarcom))
+//                    {
+//                        garcomParaMesa = garcomNomeAtuais;
+//                    }
+//
+//                }
+//            }catch(Exception e)
+//            {
+//                e.printStackTrace();
+//                System.out.println("Erro ao buscar garcom pelo nome!");
+//            }
+//            mesaBuscada.setGarcomDaMesa(garcomParaMesa);
+//            garcomParaMesa.getArlMesasNoGarcom().add(mesaBuscada);
         }
 
         private static void relatorioMesa() throws SQLException
@@ -426,13 +434,21 @@ public class MainBanco
                     System.out.print("RESERVADA.");
                 }
                 System.out.print("\nGarçom dessa mesa: \n");
-                if(mesaAqui.getGarcomDaMesa() != null)
+
+                try
                 {
-                    System.out.println(mesaAqui.getGarcomDaMesa().getNome());
+                    if(mesaAqui.getGarcomDaMesa().getCpf() == null)
+                    {
+                        System.out.println("Nao ha garçom definido para esta mesa ainda.");
+                    }
+                    else
+                        System.out.println(mesaAqui.getGarcomDaMesa().getCpf());
+                    System.out.println();
+                } catch (Exception e)
+                {
+                    System.out.println("Essa mesa nao possui garçom definido, por favor defina um garçom" +
+                            " para ela antes de exibir relatorios.");
                 }
-                else
-                    System.out.println("Nao ha garçom definido para esta mesa ainda.");
-                System.out.println();
             }
 //            ArrayList<Mesa> arrayMesas = buscarRelatorioMesas();
 //

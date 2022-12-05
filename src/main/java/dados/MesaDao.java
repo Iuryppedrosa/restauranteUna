@@ -5,6 +5,7 @@ import conexao.Conexao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MesaDao
 {
@@ -32,7 +33,6 @@ public class MesaDao
             System.out.println("Erro ao cadastrar mesa!!");
         }
     }
-
     public static void removerMesa(int numeroMesa) throws SQLException
     {
         try
@@ -58,12 +58,13 @@ public class MesaDao
     public static ArrayList<Mesa> buscarMesas() throws SQLException
     {
         ArrayList<Mesa> mesas = new ArrayList<>();
-
-        try {
+        try
+        {
             Connection conexaoRecebida = Conexao.getInstance();
             String sql = """
                     SELECT * FROM mesa
                     """;
+
 
             PreparedStatement stmt = conexaoRecebida.prepareStatement(sql);
 
@@ -76,10 +77,15 @@ public class MesaDao
                 int capacidadeMesa = rs.getInt("capacidadeMesa");
                 String ocupacaoMesa = rs.getString("ocupacaoMesa");
                 String garcomDaMesa = rs.getString("garcomDaMesa");
+                Garcom garcomMesa = GarcomDAO.bucarPeloCpf(garcomDaMesa);
 
-                Mesa mesa = new Mesa(numeroMesa,capacidadeMesa,ocupacaoMesa,null);
+
+                Mesa mesa = new Mesa(numeroMesa,capacidadeMesa,ocupacaoMesa, null);
+                //mesas.add(mesa);
+                mesa.setGarcomDaMesa(garcomMesa);
                 mesas.add(mesa);
             }
+
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -129,6 +135,41 @@ public class MesaDao
         return mesa;
     }
 
+    public static ArrayList<Mesa> buscarMesaLivreEcomGarcom() throws SQLException
+    {
+        ArrayList<Mesa> mesaARL = new ArrayList<>();
+
+        try
+        {
+            Connection conexaoRecebida = Conexao.getInstance();
+
+            String sql = """
+                    SELECT * FROM mesa WHERE ocupacaoMesa = 2 and GarcomDaMesa IS NOT NULL
+                    """;
+
+            PreparedStatement stmt = conexaoRecebida.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next() == true)
+            {
+                String ocupacaoMesa = rs.getString("ocupacaoMesa");
+                String garcomDaMesa = rs.getString("garcomDaMesa");
+                Garcom garcomMesa = GarcomDAO.bucarPeloCpf(garcomDaMesa);
+
+                Mesa mesa = new Mesa();
+                mesa.setOcupacaoMesa(ocupacaoMesa);
+                mesa.setGarcomDaMesa(garcomMesa);
+
+                mesaARL.add(mesa);
+
+            }
+        }catch (SQLException e)
+        {
+
+        }
+    }
+
     public static ArrayList<Mesa> buscarMesaPeloCapacidadeDeClientes(int capacidadeMesaBusca) throws SQLException
     {
         ArrayList<Mesa> mesaARL = new ArrayList<>();
@@ -167,16 +208,28 @@ public class MesaDao
         return mesaARL;
     }
 
-    public static void definirGarcomAUmaMesa(String cpf)
+    public static void definirGarcomAUmaMesa(String cpf, int numeroMesa) throws SQLException
     {
-       Mesa mesa = new Mesa();
+        try
+        {
+            Connection conexao = Conexao.getInstance();
 
-       Connection conexao = Conexao.getInstance();
+            String sql = """
+                    UPDATE mesa set garcomDaMesa = ? WHERE numeroMesa = ?
+                    """;
 
-       String sql = """
-               INSERT INTO mesa (garcomMesa)
-               VALUE ?
-               """;
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            stmt.setInt(2, numeroMesa);
 
+
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("Nao foi possivel incluir esse garcom a mesa.");
+            throw new RuntimeException(e);
+        }
     }
 }
