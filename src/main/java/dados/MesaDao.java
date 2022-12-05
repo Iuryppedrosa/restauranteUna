@@ -119,11 +119,12 @@ public class MesaDao
                 int capacidadeMesa = rs.getInt("capacidadeMesa");
                 String ocupacaoMesa = rs.getString("ocupacaoMesa");
                 String garcomDaMesa = rs.getString("garcomDaMesa");
+                Garcom garcomMesa = GarcomDAO.bucarPeloCpf(garcomDaMesa);
 
                 mesa.setNumeroMesa(numeroMesa);
                 mesa.setCapacidadeMesa(capacidadeMesa);
                 mesa.setOcupacaoMesa(ocupacaoMesa);
-                mesa.setGarcomDaMesa(null);
+                mesa.setGarcomDaMesa(garcomMesa);
             }
         } catch (SQLException e)
         {

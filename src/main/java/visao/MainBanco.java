@@ -206,7 +206,7 @@ public class MainBanco
 
             Garcom garcomEncontrado = GarcomDAO.buscaGarcomPeloEmail(emailGarcomBusca);
 
-            if(garcomEncontrado == null)
+            if(garcomEncontrado.getEmail() == null)
             {
                 System.out.println("Nao foi encontrado garcom com este email.");
             }
@@ -410,16 +410,11 @@ public class MainBanco
                 else if (mesaAqui.getOcupacaoMesa().equals("2"))
                     System.out.println("LIVRE");
                 else System.out.println("RESERVADA.");
-                System.out.println("Garcom da mesa: ");
-
-                if (mesaAqui.getGarcomDaMesa() != null)
-                {
-                    System.out.println(mesaAqui.getGarcomDaMesa().getNome());
-                } else
-                    System.out.println("Nao ha garçom definido para esta mesa ainda.");
                 System.out.println();
-
             }
+
+            if(mesasCapacidade.isEmpty())
+                System.out.println("Nao ha mesas com essa capacidade.");
 
         }
         private static void buscarMesaPorNumero() throws SQLException
@@ -429,7 +424,7 @@ public class MainBanco
 
             Mesa mesaEncontrada = MesaDao.buscaMesaPeloCodigo(numeroMesa);
 
-            if(mesaEncontrada == null)
+            if(mesaEncontrada.getNumeroMesa() != numeroMesa)
             {
                 System.out.println("Nao foi encontrado mesa com esse numero.");
             }else
@@ -444,13 +439,20 @@ public class MainBanco
                 else System.out.println("RESERVADA.");
                 System.out.println("Garcom da mesa: ");
 
-                if(mesaEncontrada.getGarcomDaMesa() != null)
+                try
                 {
-                    System.out.println(mesaEncontrada.getGarcomDaMesa().getNome());
+                    if(mesaEncontrada.getGarcomDaMesa().getCpf() == null)
+                    {
+                        System.out.println("Nao ha garçom definido para esta mesa ainda.\n");
+                    }
+                    else
+                        System.out.println(mesaEncontrada.getGarcomDaMesa().getCpf());
+                    System.out.println();
+                } catch (Exception e)
+                {
+                    System.out.println("Essa mesa nao possui garçom definido, por favor defina um garçom" +
+                            " para ela antes de exibir relatorios.\n");
                 }
-                else
-                    System.out.println("Nao ha garçom definido para esta mesa ainda.");
-                System.out.println();
             }
         }
 

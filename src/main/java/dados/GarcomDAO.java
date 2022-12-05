@@ -114,7 +114,6 @@ public class GarcomDAO {
                 String cpf = rs.getString("cpf");
                 String dataDeNascimento = rs.getString("dataNascimento");
                 String email = rs.getString("email");
-                //char sexo = rs.getNCharacterStream("sexo");
                 double salarioFixo = rs.getDouble("salarioFixo");
                 String telefone = rs.getString("telefone");
 
