@@ -2,7 +2,6 @@ package dados;
 import beans.Garcom;
 import beans.Mesa;
 import conexao.Conexao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class GarcomDAO {
+public class GarcomDAO
+{
     public static void cadastrar(Garcom garcom) throws SQLException
     {
         try {
@@ -33,13 +33,15 @@ public class GarcomDAO {
 
             stmt.execute();
             stmt.close();
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
             System.out.println("Erro ao cadastrar garcom!!!");
         }
     }
 
-    public static Garcom bucarPeloCpf(String cpf) throws SQLException {
+    public static Garcom bucarPeloCpf(String cpf) throws SQLException
+    {
         Garcom garcom = null;
 
         try {
@@ -71,8 +73,10 @@ public class GarcomDAO {
         return garcom;
     }
 
-    public static void remover(String cpf) throws SQLException {
-        try {
+    public static void remover(String cpf) throws SQLException
+    {
+        try
+        {
             Connection conexaoRecebida = Conexao.getInstance();
 
             String sql = """
