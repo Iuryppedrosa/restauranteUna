@@ -2,16 +2,15 @@ package dados;
 import beans.Garcom;
 import beans.Mesa;
 import conexao.Conexao;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MesaDao
 {
     public static void cadastrarMesa(Mesa mesa) throws SQLException
     {
-        try {
+        try
+        {
             Connection conexaoRecebida = Conexao.getInstance();
             String sql = """
                     INSERT INTO mesa (numeroMesa, capacidadeMesa, ocupacaoMesa, garcomDaMesa)
@@ -90,7 +89,6 @@ public class MesaDao
         {
             e.printStackTrace();
             System.out.println("Erro ao buscar mesas!!");
-            throw new RuntimeException(e);
         }
         return mesas;
     }
@@ -153,11 +151,13 @@ public class MesaDao
 
             while (rs.next() == true)
             {
+                int numeroMesa = rs.getInt("numeroMesa");
                 String ocupacaoMesa = rs.getString("ocupacaoMesa");
                 String garcomDaMesa = rs.getString("garcomDaMesa");
                 Garcom garcomMesa = GarcomDAO.bucarPeloCpf(garcomDaMesa);
 
                 Mesa mesa = new Mesa();
+                mesa.setNumeroMesa(numeroMesa);
                 mesa.setOcupacaoMesa(ocupacaoMesa);
                 mesa.setGarcomDaMesa(garcomMesa);
 
@@ -166,8 +166,11 @@ public class MesaDao
             }
         }catch (SQLException e)
         {
-
+            e.printStackTrace();
+            System.out.println("Erro ao buscar mesa!!");
         }
+
+        return mesaARL;
     }
 
     public static ArrayList<Mesa> buscarMesaPeloCapacidadeDeClientes(int capacidadeMesaBusca) throws SQLException
