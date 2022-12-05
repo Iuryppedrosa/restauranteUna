@@ -375,7 +375,7 @@ public class MainBanco
                 {
                     if(mesaAqui.getGarcomDaMesa().getCpf() == null)
                     {
-                        System.out.println("Nao ha garçom definido para esta mesa ainda.");
+                        System.out.println("Nao ha garçom definido para esta mesa ainda.\n");
                     }
                     else
                         System.out.println(mesaAqui.getGarcomDaMesa().getCpf());
@@ -383,7 +383,7 @@ public class MainBanco
                 } catch (Exception e)
                 {
                     System.out.println("Essa mesa nao possui garçom definido, por favor defina um garçom" +
-                            " para ela antes de exibir relatorios.");
+                            " para ela antes de exibir relatorios.\n");
                 }
             }
         }
