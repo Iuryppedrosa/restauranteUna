@@ -13,7 +13,8 @@ public class MainBanco
         private static final ArrayList<Mesa> arlMesa = new ArrayList<>();
         private static final Scanner input = new Scanner(System.in);
 
-        public static void main(String[] args) throws SQLException {
+        public static void main(String[] args) throws SQLException
+        {
             MainBanco.menuInicial();
             int opcao = input.nextInt();
             do

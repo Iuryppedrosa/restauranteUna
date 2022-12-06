@@ -9,7 +9,8 @@ public class Conexao
 
     private Conexao()
     {
-        try {
+        try
+        {
             conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/restauranteuna?useSSL=false", "root", "Francinete1209");
         }catch (Exception e)
         {
